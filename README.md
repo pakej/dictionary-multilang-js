@@ -1,14 +1,51 @@
 # Description
 A simple JS library to support multiple language (multi-lang) feature or translations on sites
 
+# How it works
+1. The `JSON` file will act as language packs that have different translations of the same text.
+2. It loads up the language packs (that contains the text strings) from the supplied `JSON` file.
+3. Initialise the elements with `data-dictionary` attribute with the text from the default language, set.
+4. Change the `data-dictionary` elements, based on the selected language, by toggling the buttons
+
+**Note:**  
+The value for the `data-dictionary` attribute is the location of the text string inside the `JSON` file.  
+Example:  
+
+`lang.english.json`
+```
+{
+	"body": {
+		"some_heading" : "your header text",
+		"some_other_heading": "anyone\'s header text"
+	}
+}
+```
+
+`lang.thai.json`
+```
+{
+	"body": {
+		"some_heading" : "ข้อความส่วนหัวของคุณ",
+		"some_other_heading": "ข้อความส่วนหัวของทุกคน"
+	}
+}
+```
+
+`your_page.html`
+```
+<!-- The value within the <h1> tag will be 
+'your header text' or 'ข้อความส่วนหัวของคุณ' -->
+<h1 data-dictionary="body.some_heading"></h1>
+```
+
 # Dependencies
 - jQuery
 
 # Installation
-Simply download `dictionary.js` into your website folder and you are ready to go!
+Simply download the multi-lang package file `dictionary.js` into your website folder and you are ready to go!
 
 # Usage
-1) Import dictionary-js
+1) Import multi-lang-js package
 ```
 <script src="path/to/dictionary.js"></script>
 ```
