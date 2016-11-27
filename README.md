@@ -23,7 +23,7 @@ dictionary.init({
   default: 'en'
 });
 ```
-_Read more on the JSON tree structure in the [note section](https://github.com/zaimramlan/dictionary-multilang-js#note)_
+<sup>_Read more on the JSON tree structure in the [note section](https://github.com/zaimramlan/dictionary-multilang-js#note)_</sup>
 
 3) Initialise language toggle buttons
 ```
@@ -38,7 +38,7 @@ dictionary.initButtons({
 ```
 <h1 data-dictionary="body.some_heading.text"></h1>
 ```
-_Read more on the value of the `data-dictionary` value, in the [note section](https://github.com/zaimramlan/dictionary-multilang-js#note)_
+<sup>_Read more on the value of the `data-dictionary` value, in the [note section](https://github.com/zaimramlan/dictionary-multilang-js#note)_</sup>
 
 5) Add the language buttons
 ```
