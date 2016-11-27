@@ -66,7 +66,7 @@ Add it to **translate placeholder texts** in form inputs
 
 2) If you need to add additional actions after the user clicks on the toggle language buttons, you may use `addButtonActions` and define a function into it.
 
-<sup>_Note: Make sure you use `addButtonActions` before `initButtons` to ensure the additional button actions are actually binded to the toggle language buttons._</sup>
+<sup>_Note: Make sure you use `addButtonActions` **before** `initButtons` to ensure the actions are binded to the **language buttons**._</sup>
 ```
 dictionary.addButtonActions = function() {
 	console.log('execute me!);
