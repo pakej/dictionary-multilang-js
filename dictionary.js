@@ -27,7 +27,7 @@ Dictionary.prototype = {
 		var current_pack = new Array();
 
 		for(pack in language_packs) {
-			// if key is equals to 'default'
+			// if key does not equals to 'default'
 			if(pack != 'default') {
 				// push the current `pack` into the array which will act as a key
 				// for the `languages` object
@@ -49,12 +49,12 @@ Dictionary.prototype = {
 					function() {
 						console.log(current_pack[index++].toUpperCase() + ' language pack failed to load.')
 					}
-				);				
+				);
 			}
 		}
 
 		// sets the default & current language
-		self.default_language = (language_packs['default'] || Object.keys(language_packs)[0]).toLowerCase();		
+		self.default_language = self.current_language = (language_packs['default'] || Object.keys(language_packs)[0]).toLowerCase();		
 	},
 
 	// initialise buttons to toggle language pack
