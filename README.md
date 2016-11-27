@@ -5,7 +5,7 @@ A simple JS library to support multiple language (multi-lang) feature or transla
 - jQuery
 
 # Installation
-Simply download the dictionary-multilang package file `dictionary.js` into your website folder and you are ready to go!
+Simply download the dictionary-multilang file `dictionary.js` into your website folder and you are ready to go!
 
 # Usage
 1) Import dictionary-multilang-js package
@@ -13,7 +13,7 @@ Simply download the dictionary-multilang package file `dictionary.js` into your 
 <script src="path/to/dictionary.js"></script>
 ```
 
-2) Initialise language packs
+2) Initialise language packs  
 ```
 var dictionary = new Dictionary();
 dictionary.init({
@@ -23,6 +23,7 @@ dictionary.init({
   default: 'en'
 });
 ```
+_Read more on the JSON tree structure in the [note section](https://github.com/zaimramlan/dictionary-multilang-js#note)_
 
 3) Initialise language toggle buttons
 ```
@@ -33,10 +34,11 @@ dictionary.initButtons({
 });
 ```
 
-4) Tag the elements that you want translated, with `data-dictionary="text.location.in.JSON.tree"`
+4) Tag the elements that you want translated, with `data-dictionary="text.location.in.JSON.tree"`  
 ```
 <h1 data-dictionary="body.some_heading.text"></h1>
 ```
+_Read more on the value of the `data-dictionary` value, in the [note section](https://github.com/zaimramlan/dictionary-multilang-js#note)_
 
 5) Add the language buttons
 ```
@@ -56,22 +58,30 @@ a.active-dictionary {
 ```
 
 # Additional Configurations
-1) `placeholder-dictionary`  
-Add it to translate placholder texts in form inputs
+By default, the contents within any html element with the attribute `data-dictionary` like 
 ```
-<input data-dictionary="form.placeholders.name" placeholder-dictionary type="text" name="name">
+<span data-dictionary="body.paragraph.contents"></span>
 ```
-
-2) `append-dictionary`  
-Add it to append translation text within the `data-dictionary` element
+will be fully replaced with the translation texts.  
+  
+If you need the text to be appended or prepended instead, you may use 1 or 2.  
+   
+1) `append-dictionary`  
+Add it to **append translation** text within the `data-dictionary` element
 ```
 <p data-dictionary="body.paragraph" append-dictionary></p>
 ```
 
-3) `prepend-dictionary`  
-Add it to prepend translation text within the `data-dictionary` element
+2) `prepend-dictionary`  
+Add it to **prepend translation** text within the `data-dictionary` element
 ```
 <p data-dictionary="body.paragraph" prepend-dictionary></p>
+```
+
+3) `placeholder-dictionary`  
+Add it to **translate placeholder texts** in form inputs
+```
+<input data-dictionary="form.placeholders.name" placeholder-dictionary type="text" name="name">
 ```
 
 4) If you need to add additional actions after the user clicks on the toggle language buttons, you may use `addButtonActions` and define a function into it.
@@ -95,7 +105,7 @@ dictionary.initButtons({
 3) Initialise the elements with `data-dictionary` attribute with the text from the default language, set.  
 4) Change the `data-dictionary` elements, based on the selected language, by toggling the buttons  
 
-**Note:**  
+# Note:
 The value for the `data-dictionary` attribute is the location of the text string inside the `JSON` file.  
 Example:  
 
