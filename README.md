@@ -58,35 +58,15 @@ a.active-dictionary {
 ```
 
 # Additional Configurations
-By default, the contents within any html element with the attribute `data-dictionary` like 
-```
-<span data-dictionary="body.paragraph.contents"></span>
-```
-will be fully replaced with the translation texts.  
-  
-If you need the text to be appended or prepended instead, you may use 1 or 2.  
-   
-1) `append-dictionary`  
-Add it to **append translation** text within the `data-dictionary` element
-```
-<p data-dictionary="body.paragraph" append-dictionary></p>
-```
-
-2) `prepend-dictionary`  
-Add it to **prepend translation** text within the `data-dictionary` element
-```
-<p data-dictionary="body.paragraph" prepend-dictionary></p>
-```
-
-3) `placeholder-dictionary`  
+1) `placeholder-dictionary`  
 Add it to **translate placeholder texts** in form inputs
 ```
 <input data-dictionary="form.placeholders.name" placeholder-dictionary type="text" name="name">
 ```
 
-4) If you need to add additional actions after the user clicks on the toggle language buttons, you may use `addButtonActions` and define a function into it.
+2) If you need to add additional actions after the user clicks on the toggle language buttons, you may use `addButtonActions` and define a function into it.
 
-_Note: Make sure you use `addButtonActions` before `initButtons` to ensure the additional button actions are actually binded to the toggle language buttons._
+<sup>_Note: Make sure you use `addButtonActions` before `initButtons` to ensure the additional button actions are actually binded to the toggle language buttons._</sup>
 ```
 dictionary.addButtonActions = function() {
 	console.log('execute me!);
@@ -102,8 +82,8 @@ dictionary.initButtons({
 # How It Works
 1) The `JSON` file will act as language packs that have different translations of the same text.  
 2) It loads up the language packs (that contains the text strings) from the supplied `JSON` file.  
-3) Initialise the elements with `data-dictionary` attribute with the text from the default language, set.  
-4) Change the `data-dictionary` elements, based on the selected language, by toggling the buttons  
+3) Initialise the elements with `data-dictionary` attribute with the text from the default language specified.  
+4) Change the `data-dictionary` elements' `innerHTML`, based on the selected language, by toggling the buttons.
 
 # Note:
 The value for the `data-dictionary` attribute is the location of the text string inside the `JSON` file.  

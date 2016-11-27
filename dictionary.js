@@ -24,26 +24,22 @@ Dictionary.prototype = {
 		// preserve 'this' context
 		var self = this;		
 		var index = 0;
-		var current_pack = new Array();		
-		this.default_language = new String();
+		var current_pack = new Array();
 
 		for(pack in language_packs) {
 			// if key is equals to 'default'
-			if(pack == 'default') {
-				// sets default language pack
-				self.default_language = language_packs[pack].toLowerCase();
-				self.current_language = language_packs[pack].toLowerCase();
-			} else {
+			if(pack != 'default') {
 				// push the current `pack` into the array which will act as a key
 				// for the `languages` object
 				current_pack.push(pack.toLowerCase());
 
+				// dispatches a request to get the language packs
 				$.ajax({
 					url: language_packs[pack]
 				}).success(
 					function(data) {
 						self.languages[current_pack[index++]] = data;
-						// initialise texts after the successful load of the last language pack
+						// initialise texts after the successful load of the final specified language pack
 						// 
 						// Note: the condition is necessary, to ensure that the languages object 
 						// has already been initialised before the switchTo function is invoked
@@ -56,6 +52,9 @@ Dictionary.prototype = {
 				);				
 			}
 		}
+
+		// sets the default & current language
+		self.default_language = (language_packs['default'] || Object.keys(language_packs)[0]).toLowerCase();		
 	},
 
 	// initialise buttons to toggle language pack
@@ -101,12 +100,8 @@ Dictionary.prototype = {
 			// get the text translation from the language pack
 			text = eval('this.languages.' + language + '.' + text_location);
 
-			// prepend text translation before any elements within the tagged element
-			if(elements[i].getAttribute('prepend-dictionary') != null) elements[i].innerHTML = text + elements[i].innerHTML; 
-			// append text translation after any elements within the tagged element
-			else if(elements[i].getAttribute('append-dictionary') != null) elements[i].innerHTML += text; 
 			// change placeholder text translation on tagged form element
-			else if(elements[i].getAttribute('placeholder-dictionary') != null) elements[i].placeholder = text;
+			if(elements[i].getAttribute('placeholder-dictionary') != null) elements[i].placeholder = text;
 			// replace everything within the tagged element to the text translation
 			else elements[i].innerHTML = text;
 		}
