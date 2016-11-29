@@ -49,12 +49,12 @@ Dictionary.prototype = {
 					function() {
 						console.log(current_pack[index++].toUpperCase() + ' language pack failed to load.')
 					}
-				);
+				);				
 			}
 		}
 
 		// sets the default & current language
-		self.default_language = self.current_language = (language_packs['default'] || Object.keys(language_packs)[0]).toLowerCase();		
+		self.default_language = self.current_language = (language_packs.default || current_pack[0].toLowerCase());		
 	},
 
 	// initialise buttons to toggle language pack
