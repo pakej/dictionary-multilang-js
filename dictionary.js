@@ -23,38 +23,45 @@ Dictionary.prototype = {
 	init: function(language_packs) {
 		// preserve 'this' context
 		var self = this;		
-		var index = 0;
-		var current_pack = new Array();
+		
+		// create a promises array to hold the request promise of
+		// ajax request to get the language packs
+		self.promises = new Array();
 
-		for(pack in language_packs) {
+		$.each(language_packs, function(language, url) {
 			// if key does not equals to 'default'
-			if(pack != 'default') {
-				// push the current `pack` into the array which will act as a key
-				// for the `languages` object
-				current_pack.push(pack.toLowerCase());
+			if(language != 'default') {
+				// create a new promise instance
+				var promise = $.Deferred();
+				self.promises.push(promise);
 
 				// dispatches a request to get the language packs
 				$.ajax({
-					url: language_packs[pack]
+					url: url
 				}).success(
 					function(data) {
-						self.languages[current_pack[index++]] = data;
-						// initialise texts after the successful load of the final specified language pack
-						// 
-						// Note: the condition is necessary, to ensure that the languages object 
-						// has already been initialised before the switchTo function is invoked
-						if(index + 1 == Object.keys(language_packs).length) self.switchTo(self.default_language);
+						// set the language data into the languages object
+						self.languages[language] = data;
+						// resolve the promise and sends out the key (indicates success)
+						promise.resolve(language);
 					}
 				).fail(
 					function() {
-						console.log(current_pack[index++].toUpperCase() + ' language pack failed to load.')
+						console.log(key.toUpperCase() + ' language pack failed to load.');
+						// rejects the promise (indicates failure)
+						promise.reject();
 					}
 				);				
 			}
-		}
+		});
 
-		// sets the default & current language
-		self.default_language = self.current_language = (language_packs.default || current_pack[0].toLowerCase());		
+		$.when.apply($, self.promises).then(
+			function(first_language_loaded) {
+				// sets the default & current language
+				self.default_language = self.current_language = (language_packs.default || first_language_loaded.toLowerCase());
+				self.switchTo(self.default_language);
+			}
+		);
 	},
 
 	// initialise buttons to toggle language pack
@@ -65,14 +72,19 @@ Dictionary.prototype = {
 			var container_button = $('.btn-languages');
 			var current_button = $('.' + button_selector);
 
-			// if the current language is the default language
-			if(language.toLowerCase() == self.default_language) {
-				// set the button to active
-				current_button.addClass('active-dictionary');					
-			}
+			// execute this when all the language packs have loaded
+			$.when.apply($, self.promises).then(function() {
+				// if the current language is the default language
+				if(language.toLowerCase() == self.default_language) {
+					// set the button to active
+					current_button.addClass('active-dictionary');					
+				}
+			});
 
 			current_button.click(
 				function() { 
+					// if the button is disabled, cancel all actions
+					if($(this).hasClass('disabled')) return;
 					// remove elements with 'active-dictionary' class
 					$('.active-dictionary').removeClass('active-dictionary');
 					// set the current button to active
