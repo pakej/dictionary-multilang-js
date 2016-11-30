@@ -47,7 +47,7 @@ Dictionary.prototype = {
 					}
 				).fail(
 					function() {
-						console.log(key.toUpperCase() + ' language pack failed to load.');
+						console.log(language.toUpperCase() + ' language pack failed to load.');
 						// rejects the promise (indicates failure)
 						promise.reject();
 					}
